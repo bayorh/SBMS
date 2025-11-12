@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\SBMS.props" />
+</Project>
