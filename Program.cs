@@ -36,7 +36,7 @@ namespace SBMS
 
             var app = builder.Build();
 
-            // Seed the database in development environment
+            
             if (app.Environment.IsDevelopment())
             {
                 using (var scope = app.Services.CreateScope())

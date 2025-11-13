@@ -1,9 +1,7 @@
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SBMS.src.Contracts;
 using SBMS.src.Dtos;
 using SBMS.src.Entitiies;
-using System;
-using System.Threading.Tasks;
 
 namespace SBMS.src.Servicess
 {
@@ -28,14 +26,14 @@ namespace SBMS.src.Servicess
 
         public async Task<AuthResponseDto?> LoginAsync(LoginRequestDto request)
         {
-            // Due to the data model, we fetch a subscriber to verify service credentials
+            
             var subscriber = await _subscriberRepository.GetSubsciberBy(request.service_id);
             if (subscriber == null)
             {
                 return new AuthResponseDto("Service not found.", false);
             }
 
-            // NOTE: This assumes plain text passwords. In a real app, use a hashing library like BCrypt.
+            
             if (subscriber.PasswordHash != request.password)
             {
                 return new AuthResponseDto("Invalid credentials.", false);
@@ -54,7 +52,7 @@ namespace SBMS.src.Servicess
                 ServiceId = subscriber.ServiceId,
                 IssuedAt = DateTime.UtcNow,
                 ExpiresAt = DateTime.UtcNow.AddHours(_tokenOptions.ExpiryHours),
-                Id = Guid.NewGuid().ToString() // The token itself
+                Id = Guid.NewGuid().ToString() 
             };
 
             await _serviceRepository.CreateServiceToken(newToken);

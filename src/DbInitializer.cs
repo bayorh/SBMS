@@ -10,27 +10,25 @@ namespace SBMS.src
         {
             context.Database.EnsureCreated();
 
-            // Look for any subscribers.
             if (context.Subscribers.Any())
             {
-                return;   // DB has been seeded
+                return;   
             }
 
-            // 1. Create the parent Service record.
-            // Its ID must match the business key we use for the service.
+          
             var service = new Service
             {
                 Id = "TestSvc1"
             };
 
-            // 2. Create a subscriber record that also defines the service credentials
+           
             var serviceRecord = new Subscriber
             {
-                ServiceId = service.Id, // Set the foreign key to the Service's Id
-                PasswordHash = "password123", // Storing plain text as per previous implementation notes
-                PhoneNumber = "0000000000", // Dummy phone number for the service record
+                ServiceId = service.Id, 
+                PasswordHash = "password123", 
+                PhoneNumber = "0000000000",
                 IsSubscribed = false,
-                LastActionAt = System.DateTime.UtcNow
+                LastActionAt = DateTime.UtcNow
             };
 
             context.Services.Add(service);

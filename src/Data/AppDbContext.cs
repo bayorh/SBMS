@@ -17,27 +17,18 @@ namespace SBMS.src.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Configure the relationship between Service and Subscriber
+            
             modelBuilder.Entity<Service>()
                 .HasMany(s => s.Subscribers)
                 .WithOne(sub => sub.Service)
                 .HasForeignKey(sub => sub.ServiceId)
-                .HasPrincipalKey(s => s.Id); // Use the Id from BaseEntity as the principal key
+                .HasPrincipalKey(s => s.Id); 
 
-            // Configure ServiceToken relationship
             modelBuilder.Entity<ServiceToken>()
                 .HasOne(st => st.Service)
-                .WithMany() // No navigation property back from Service
+                .WithMany() 
                 .HasForeignKey(st => st.ServiceId)
                 .HasPrincipalKey(s => s.Id);
-
-            // Set table names to match the class names by convention
-            // EF Core does this by default, but you can be explicit if needed
-            modelBuilder.Entity<Service>().ToTable("Services");
-            modelBuilder.Entity<Subscriber>().ToTable("Subscribers");
-            modelBuilder.Entity<ServiceToken>().ToTable("ServiceTokens");
-            modelBuilder.Entity<Subscription>().ToTable("Subscriptions");
         }
     }
 }

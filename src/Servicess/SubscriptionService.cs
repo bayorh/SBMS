@@ -43,7 +43,7 @@ namespace SBMS.src.Servicess
             }
             else
             {
-                // Get service details (like password hash) from another subscriber record for the same service
+              
                 var serviceInfo = await _subscriberRepository.GetSubsciberBy(request.service_id);
                 if (serviceInfo == null)
                 {
@@ -56,7 +56,7 @@ namespace SBMS.src.Servicess
                     PhoneNumber = request.phone_number,
                     IsSubscribed = true,
                     LastActionAt = DateTime.UtcNow,
-                    PasswordHash = serviceInfo.PasswordHash // Re-using password hash from existing service entry
+                    PasswordHash = serviceInfo.PasswordHash 
                 };
                 await _subscriberRepository.AddSubscriber(existingSubscriber);
             }
